@@ -11,7 +11,7 @@
     <android.support.design.widget.AppBarLayout
             android:id="@+id/app_bar_scrolling"
             android:layout_width="match_parent"
-            android:layout_height="600dp"
+            android:layout_height="500dp"
             android:fitsSystemWindows="true"
             app:layout_behavior="com.guru.mymovies.util.FixAppBarLayoutBehavior"
             android:theme="@style/AppTheme.AppBarOverlay">
