@@ -1,7 +1,7 @@
 package com.guru.mymovies.di
 
-import com.guru.mymovies.data.MoviesRepository
-import com.guru.mymovies.data.MoviesRepositoryImpl
+import com.guru.mymovies.data.repository.MoviesRepository
+import com.guru.mymovies.data.repository.MoviesRepositoryImpl
 import com.guru.mymovies.data.api.*
 import com.guru.mymovies.data.db.MoviesDatabase
 import com.guru.mymovies.ui.details.MovieDetailViewModel

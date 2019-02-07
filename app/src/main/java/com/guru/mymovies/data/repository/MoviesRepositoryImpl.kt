@@ -1,14 +1,11 @@
-package com.guru.mymovies.data
+package com.guru.mymovies.data.repository
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 
-import android.util.Log
 import com.guru.mymovies.data.api.MoviesDataSource
 import com.guru.mymovies.data.db.Movie
 import com.guru.mymovies.data.db.MoviesDao
-import android.arch.lifecycle.MediatorLiveData
-import android.arch.lifecycle.Observer
 import com.guru.mymovies.App
 import com.guru.mymovies.util.SingleLiveEvent
 
@@ -18,7 +15,8 @@ import kotlinx.coroutines.*
 
 
 
-class MoviesRepositoryImpl(private val moviesDao: MoviesDao, private val moviesDataSource: MoviesDataSource) : MoviesRepository {
+class MoviesRepositoryImpl(private val moviesDao: MoviesDao, private val moviesDataSource: MoviesDataSource) :
+    MoviesRepository {
 
 
     private var similarMoviesLiveData: MutableLiveData<List<Movie>> = MutableLiveData()

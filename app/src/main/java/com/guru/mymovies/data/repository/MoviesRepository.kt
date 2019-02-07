@@ -1,4 +1,4 @@
-package com.guru.mymovies.data
+package com.guru.mymovies.data.repository
 
 import android.arch.lifecycle.LiveData
 import com.guru.mymovies.data.db.Movie

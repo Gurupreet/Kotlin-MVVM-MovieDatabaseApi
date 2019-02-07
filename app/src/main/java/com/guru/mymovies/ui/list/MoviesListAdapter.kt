@@ -40,10 +40,6 @@ class MoviesListAdapter(val context: Context, val list: MutableList<Movie>): Rec
             notifyDataSetChanged()
     }
 
-    fun getItemInserted(): Int {
-        return firstInserted
-    }
-
     override fun onBindViewHolder(holder: MovieVH, position: Int) {
         val movie = movieList[position]
         holder.bind(movie)

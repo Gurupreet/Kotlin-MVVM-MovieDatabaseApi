@@ -33,7 +33,18 @@ class MovieDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movie_detail)
         getIntentInfo()
         setUpUI()
+    }
 
+    private fun getIntentInfo() {
+        movieId = intent!!.extras["id"].toString()
+        addedTime = (intent!!.extras["addedTime"]  ?: System.nanoTime() ) as Long
+        toolbar.title = ""
+        Glide.with(this)
+            .load(Constants.movieImagePrefix+"w500/"+intent!!.extras["poster"]?.toString())
+            .into(image_viewpager_experience)
+        fab_scrolling.setOnClickListener { showAddedSnackBar() }
+        loadMovieDetails()
+        listenForErrors()
     }
 
     private fun setUpUI() {
@@ -45,17 +56,7 @@ class MovieDetailActivity : AppCompatActivity() {
         similar_movies_recyclerview.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         similar_movies_recyclerview.adapter = similarMoviesAdapter
     }
-    private fun getIntentInfo() {
-        movieId = intent!!.extras["id"].toString()
-        addedTime = (intent!!.extras["addedTime"]  ?: System.nanoTime() ) as Long
-        toolbar.title = ""
-        Glide.with(this)
-          .load(Constants.movieImagePrefix+"w500/"+intent!!.extras["poster"]?.toString())
-          .into(image_viewpager_experience)
-        fab_scrolling.setOnClickListener { showAddedSnackBar() }
-        loadMovieDetails()
-        listenForErrors()
-    }
+
 
     private fun showAddedSnackBar() {
         Snackbar.make(main_wrapper, "Added to your Watchlist", Snackbar.LENGTH_LONG).setAction("Undo", View.OnClickListener {  }).show()
