@@ -5,21 +5,20 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import com.bumptech.glide.Glide
 import com.guru.mymovies.R
 import com.guru.mymovies.data.db.Movie
 import com.guru.mymovies.util.Constants
 import kotlinx.android.synthetic.main.activity_movie_detail.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
 import java.text.NumberFormat
 import java.util.*
+import kotlin.coroutines.CoroutineContext
 
-class MovieDetailActivity : AppCompatActivity() {
+class MovieDetailActivity : AppCompatActivity(), CoroutineScope {
     companion object {
        val currency =  NumberFormat.getCurrencyInstance(Locale("en", "US"))
     }
@@ -28,9 +27,15 @@ class MovieDetailActivity : AppCompatActivity() {
     private var addedTime: Long = 0
     private lateinit var similarMovies: MutableList<Movie>
     private lateinit var similarMoviesAdapter: SimilarMoviesAdapter
+    private lateinit var job: Job
+    private lateinit var observer: Observer<List<Movie>?>
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
+        job = Job()
         getIntentInfo()
         setUpUI()
     }
@@ -64,18 +69,13 @@ class MovieDetailActivity : AppCompatActivity() {
 
     private fun loadMovieDetails() {
         movieDetailViewModel.setCurrentMovieData(movieId, addedTime)
-        GlobalScope.launch(Dispatchers.Main) {
+            launch {
+                movieDetailViewModel.getMovieDetail(movieId).observe(this@MovieDetailActivity, Observer {
+                    bindMovieToUi(it)
+                })
 
-            movieDetailViewModel.getMovieDetail(movieId).observe(this@MovieDetailActivity, Observer {
-                bindMovieToUi(it)
-            })
-
-            val movies = movieDetailViewModel.similarMovies.await()
-            val observer = Observer<List<Movie>?> {
-
-            }
-            movies?.observe(this@MovieDetailActivity, object : Observer<List<Movie>?>{
-                override fun onChanged(t: List<Movie>?) {
+                val movies = movieDetailViewModel.similarMovies.await()
+                observer =  Observer { t ->
                     similarMovies.clear()
                     t?.forEach {movie ->
                         if (movie.id.toString() != movieId) {
@@ -85,9 +85,7 @@ class MovieDetailActivity : AppCompatActivity() {
                     similarMoviesAdapter.notifyDataSetChanged()
                     movies?.removeObserver(observer)
                 }
-
-            })
-
+                movies?.observe(this@MovieDetailActivity, observer)
         }
     }
 
@@ -123,5 +121,19 @@ class MovieDetailActivity : AppCompatActivity() {
             Snackbar.make(main_wrapper, it!!, Snackbar.LENGTH_LONG).show()
         }
         movieDetailViewModel.error.observe(this, observer)
+    }
+
+    override fun onDestroy() {
+        job.cancel()
+        super.onDestroy()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId) {
+            android.R.id.home -> {
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
