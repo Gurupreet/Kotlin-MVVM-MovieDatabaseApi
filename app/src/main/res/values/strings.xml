@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MyMovies</string>
+    <string name="overview">Movie overview</string>
+    <string name="similar_movies">Similar Movies</string>
+    <string name="release_date">Release date: </string>
+    <string name="user_rating">User rating: </string>
+    <string name="empty_message">No data available. Please make sure you are connected to internet.</string>
+</resources>

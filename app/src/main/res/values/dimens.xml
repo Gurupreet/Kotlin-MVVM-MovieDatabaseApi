@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="text_small">14sp</dimen>
+    <dimen name="text_medium">16sp</dimen>
+    <dimen name="text_large">20sp</dimen>
+    <dimen name="text_very_large">22sp</dimen>
+
+    <dimen name="padding_large">16dp</dimen>
+    <dimen name="padding_medium">8dp</dimen>
+    <dimen name="padding_small">4dp</dimen>
+
+    <dimen name="margin_small">4dp</dimen>
+    <dimen name="margin_medium">8dp</dimen>
+    <dimen name="margin_large">16dp</dimen>
+
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="card_elevation">5dp</dimen>
+    <dimen name="divider_thinkness">1dp</dimen>
+    <dimen name="status_bar_height">30dp</dimen>
+    <dimen name="bottom_bar_height">60dp</dimen>
+
+
+</resources>
