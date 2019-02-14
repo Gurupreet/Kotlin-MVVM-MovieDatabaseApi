@@ -19,10 +19,11 @@ import kotlinx.coroutines.launch
 import android.os.Parcelable
 import android.support.design.widget.Snackbar
 import android.view.View
+import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class ListActivity : AppCompatActivity() {
-    private val viewModel: MovieListViewModel by inject()
+    private val viewModel: MovieListViewModel by viewModel()
     private lateinit var moviesList: MutableList<Movie>
     private lateinit var moviesListAdapter: MoviesListAdapter
     private var loadingMore = false
@@ -35,25 +36,8 @@ class ListActivity : AppCompatActivity() {
         setSupportActionBar(bottom_App_bar)
         bottom_app_bar_title.text = "Now Showing"
 
-        initUi()
-        loadData()
-    }
-
-    private fun loadData() = GlobalScope.launch(Dispatchers.Main) {
-        val movies = viewModel.movies.await()
-        movies.observe(this@ListActivity, Observer {
-            loadingMore = false
-            if (!it.isNullOrEmpty()) {
-                moviesListAdapter.setMovieList(it)
-            } else {
-                showSnackbar()
-            }
-        })
-    }
-
-    private fun initUi() {
         setupRecyclerView()
-        fab.setOnClickListener {  }
+        loadData()
     }
 
     private fun setupRecyclerView() {
@@ -69,8 +53,7 @@ class ListActivity : AppCompatActivity() {
                     super.onScrolled(recyclerView, dx, dy)
 
                     val totalItemCount = layoutManager.itemCount
-                    val lastVisibleItem = layoutManager
-                        .findLastVisibleItemPosition()
+                    val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
                     if (!loadingMore && totalItemCount <= lastVisibleItem + visibleThreshold) {
                         loadingMore = true
                         if (totalItemCount % 20 == 0) {
@@ -81,6 +64,18 @@ class ListActivity : AppCompatActivity() {
                     }
                 }
             })
+    }
+
+    private fun loadData() = GlobalScope.launch(Dispatchers.Main) {
+        val movies = viewModel.movies.await()
+        movies.observe(this@ListActivity, Observer {
+            loadingMore = false
+            if (!it.isNullOrEmpty()) {
+                moviesListAdapter.setMovieList(it)
+            } else {
+                showSnackbar()
+            }
+        })
     }
 
     private fun showSnackbar() {

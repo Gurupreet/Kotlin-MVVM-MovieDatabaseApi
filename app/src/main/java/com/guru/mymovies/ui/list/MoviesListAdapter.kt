@@ -18,7 +18,6 @@ import android.support.v7.util.ListUpdateCallback
 
 class MoviesListAdapter(val context: Context, val list: MutableList<Movie>): RecyclerView.Adapter<MoviesListAdapter.MovieVH>() {
     private var movieList: List<Movie> = mutableListOf()
-    private var firstInserted = 0
 
     init {
         setHasStableIds(true)

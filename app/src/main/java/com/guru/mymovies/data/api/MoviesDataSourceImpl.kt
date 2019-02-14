@@ -58,11 +58,11 @@ class MoviesDataSourceImpl(private val movieApi: MovieApi) : MoviesDataSource {
         try {
             var result = movieApi.getSimilarMovies(id).await()
             if (result.isSuccessful) {
-                if (result?.body()?.movies.isNullOrEmpty()) {
+                if (result.body()?.movies.isNullOrEmpty()) {
                     _error.postValue("No similar movies found")
                     _similarMovies.postValue(null)
                 } else {
-                    _similarMovies.postValue(result?.body()?.movies)
+                    _similarMovies.postValue(result.body()?.movies)
                 }
             } else {
                 _error.postValue("No similar movies found")

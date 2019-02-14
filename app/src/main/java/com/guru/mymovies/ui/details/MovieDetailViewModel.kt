@@ -19,13 +19,12 @@ class MovieDetailViewModel(private val moviesRepository: MoviesRepository): View
        return moviesRepository.getMovieDetail(movieId)
     }
 
-    val error = moviesRepository.error
-
     fun setCurrentMovieData(id: String, addedTime: Long) {
         movieId = id
         this.addedTime = addedTime
-
     }
+
+    val error = moviesRepository.error
 
     val similarMovies by lazyDeferred { moviesRepository.getSimilarMovies(movieId = movieId)}
 

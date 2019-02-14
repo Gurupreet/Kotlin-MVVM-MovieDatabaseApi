@@ -18,7 +18,6 @@ import kotlinx.coroutines.*
 class MoviesRepositoryImpl(private val moviesDao: MoviesDao, private val moviesDataSource: MoviesDataSource) :
     MoviesRepository {
 
-
     private var similarMoviesLiveData: MutableLiveData<List<Movie>> = MutableLiveData()
     private var _error = SingleLiveEvent<String>()
 
@@ -44,6 +43,7 @@ class MoviesRepositoryImpl(private val moviesDao: MoviesDao, private val moviesD
         }
     }
 
+    //Calling database
     override suspend fun getShowingMovies(): LiveData<List<Movie>> {
         return withContext(Dispatchers.IO) {
             if (!App.hasFetched) {
@@ -56,12 +56,6 @@ class MoviesRepositoryImpl(private val moviesDao: MoviesDao, private val moviesD
     override suspend fun getMovieDetail(movieId: String): LiveData<Movie> {
         return withContext(Dispatchers.IO) {
             return@withContext moviesDao.getMovieDetail(movieId)
-        }
-    }
-
-    override fun fetchFullMovieDetails(movieId: String, addedTime: Long) {
-        GlobalScope.launch {
-            fetchMovieDetailfromDataSource(movieId, addedTime)
         }
     }
 
@@ -83,12 +77,19 @@ class MoviesRepositoryImpl(private val moviesDao: MoviesDao, private val moviesD
         }
     }
 
-
     private fun saveMovieDetailToLocalDatabase(movie: Movie) {
         GlobalScope.launch(Dispatchers.IO) {
             moviesDao.addMovieDetail(movie)
         }
     }
+
+    //Calling Apis
+    override fun fetchFullMovieDetails(movieId: String, addedTime: Long) {
+        GlobalScope.launch {
+            fetchMovieDetailfromDataSource(movieId, addedTime)
+        }
+    }
+
 
     private suspend fun fetchMoviesfromDataSource() {
         moviesDataSource.getShowingMovies( 1)

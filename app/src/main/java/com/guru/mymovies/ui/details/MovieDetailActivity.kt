@@ -14,15 +14,16 @@ import com.guru.mymovies.util.Constants
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 import java.text.NumberFormat
 import java.util.*
 import kotlin.coroutines.CoroutineContext
 
 class MovieDetailActivity : AppCompatActivity(), CoroutineScope {
     companion object {
-       val currency =  NumberFormat.getCurrencyInstance(Locale("en", "US"))
+       val currency = NumberFormat.getCurrencyInstance(Locale("en", "US"))!!
     }
-    private val movieDetailViewModel: MovieDetailViewModel by inject()
+    private val movieDetailViewModel: MovieDetailViewModel by viewModel()
     private lateinit var movieId: String
     private var addedTime: Long = 0
     private lateinit var similarMovies: MutableList<Movie>
@@ -38,6 +39,8 @@ class MovieDetailActivity : AppCompatActivity(), CoroutineScope {
         job = Job()
         getIntentInfo()
         setUpUI()
+        loadMovieDetails()
+        listenForErrors()
     }
 
     private fun getIntentInfo() {
@@ -48,8 +51,6 @@ class MovieDetailActivity : AppCompatActivity(), CoroutineScope {
             .load(Constants.movieImagePrefix+"w500/"+intent!!.extras["poster"]?.toString())
             .into(image_viewpager_experience)
         fab_scrolling.setOnClickListener { showAddedSnackBar() }
-        loadMovieDetails()
-        listenForErrors()
     }
 
     private fun setUpUI() {

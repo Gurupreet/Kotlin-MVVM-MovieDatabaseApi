@@ -1,7 +1,7 @@
 package com.guru.mymovies
 
 import android.app.Application
-import com.guru.mymovies.di.AppModule
+import com.guru.mymovies.di.*
 import org.koin.android.ext.android.startKoin
 
 class App: Application() {
@@ -10,6 +10,6 @@ class App: Application() {
     }
     override fun onCreate() {
         super.onCreate()
-        startKoin(this, listOf(AppModule.getModule()))
+        startKoin(this, listOf(DatabaseModule, NetworkModule, RepositoryModule, ViewModelModule))
     }
 }
