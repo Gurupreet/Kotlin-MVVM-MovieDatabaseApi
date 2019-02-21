@@ -5,6 +5,9 @@ import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
 import android.content.Context
+import com.guru.mymovies.data.db.dao.MoviesDao
+import com.guru.mymovies.data.db.model.Movie
+import com.guru.mymovies.util.ListTypeConverter
 
 @Database(
     entities = [Movie::class],

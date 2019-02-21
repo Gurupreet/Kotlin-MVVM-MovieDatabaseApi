@@ -8,8 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.guru.mymovies.R
-import com.guru.mymovies.data.db.Movie
-import com.guru.mymovies.ui.list.MoviesListAdapter
+import com.guru.mymovies.data.db.model.Movie
 import com.guru.mymovies.util.Constants
 import kotlinx.android.synthetic.main.row_similar_movie_layout.view.*
 

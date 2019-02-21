@@ -9,11 +9,10 @@ import android.view.MenuItem
 import android.view.View
 import com.bumptech.glide.Glide
 import com.guru.mymovies.R
-import com.guru.mymovies.data.db.Movie
+import com.guru.mymovies.data.db.model.Movie
 import com.guru.mymovies.util.Constants
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 import kotlinx.coroutines.*
-import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.text.NumberFormat
 import java.util.*

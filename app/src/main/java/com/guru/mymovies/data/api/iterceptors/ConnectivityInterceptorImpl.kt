@@ -1,10 +1,10 @@
-package com.guru.mymovies.data.api
+package com.guru.mymovies.data.api.iterceptors
 
 import android.content.Context
 import android.net.ConnectivityManager
+import com.guru.mymovies.data.api.iterceptors.ConnectivityInterceptor
 import okhttp3.Interceptor
 import okhttp3.Response
-import java.lang.Exception
 
 class ConnectivityInterceptorImpl(
     context: Context

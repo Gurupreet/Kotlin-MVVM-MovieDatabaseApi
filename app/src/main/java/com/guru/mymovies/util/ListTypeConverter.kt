@@ -1,4 +1,4 @@
-package com.guru.mymovies.data.db
+package com.guru.mymovies.util
 
 import android.arch.persistence.room.TypeConverter
 

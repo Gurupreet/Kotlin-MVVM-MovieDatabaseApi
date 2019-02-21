@@ -1,4 +1,4 @@
-package com.guru.mymovies.data.db
+package com.guru.mymovies.data.db.model
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey

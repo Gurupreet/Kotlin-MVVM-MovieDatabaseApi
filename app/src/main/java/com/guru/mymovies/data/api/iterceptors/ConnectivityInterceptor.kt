@@ -1,4 +1,4 @@
-package com.guru.mymovies.data.api
+package com.guru.mymovies.data.api.iterceptors
 
 import okhttp3.Interceptor
 

@@ -8,12 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.guru.mymovies.R
-import com.guru.mymovies.data.db.Movie
+import com.guru.mymovies.data.db.model.Movie
 import com.guru.mymovies.ui.details.MovieDetailActivity
 import com.guru.mymovies.util.Constants
 import kotlinx.android.synthetic.main.row_movie_layout.view.*
-import android.support.v7.util.DiffUtil
-import android.support.v7.util.ListUpdateCallback
 
 
 class MoviesListAdapter(val context: Context, val list: MutableList<Movie>): RecyclerView.Adapter<MoviesListAdapter.MovieVH>() {

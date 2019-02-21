@@ -1,7 +1,8 @@
-package com.guru.mymovies.data.db
+package com.guru.mymovies.data.db.dao
 
 import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
+import com.guru.mymovies.data.db.model.Movie
 
 @Dao
 interface MoviesDao {

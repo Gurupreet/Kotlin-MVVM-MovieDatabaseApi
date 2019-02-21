@@ -3,7 +3,7 @@ package com.guru.mymovies.ui.details
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import com.guru.mymovies.data.repository.MoviesRepository
-import com.guru.mymovies.data.db.Movie
+import com.guru.mymovies.data.db.model.Movie
 import com.guru.mymovies.util.lazyDeferred
 
 class MovieDetailViewModel(private val moviesRepository: MoviesRepository): ViewModel() {

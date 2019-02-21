@@ -1,9 +1,7 @@
 package com.guru.mymovies.data.api
 
 import android.arch.lifecycle.LiveData
-import com.guru.mymovies.data.db.Movie
-import org.json.JSONObject
-import retrofit2.Call
+import com.guru.mymovies.data.db.model.Movie
 
 interface MoviesDataSource {
     val showingMovies: LiveData<List<Movie>>

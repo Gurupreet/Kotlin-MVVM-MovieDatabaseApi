@@ -1,11 +1,8 @@
 package com.guru.mymovies.data.api
 
 import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.MutableLiveData
-import com.guru.mymovies.data.db.Movie
-import org.json.JSONObject
-import retrofit2.Call
+import com.guru.mymovies.data.db.model.Movie
 import java.lang.Exception
 
 class MoviesDataSourceImpl(private val movieApi: MovieApi) : MoviesDataSource {

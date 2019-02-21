@@ -4,8 +4,8 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 
 import com.guru.mymovies.data.api.MoviesDataSource
-import com.guru.mymovies.data.db.Movie
-import com.guru.mymovies.data.db.MoviesDao
+import com.guru.mymovies.data.db.model.Movie
+import com.guru.mymovies.data.db.dao.MoviesDao
 import com.guru.mymovies.App
 import com.guru.mymovies.util.SingleLiveEvent
 
@@ -21,14 +21,13 @@ class MoviesRepositoryImpl(private val moviesDao: MoviesDao, private val moviesD
     private var similarMoviesLiveData: MutableLiveData<List<Movie>> = MutableLiveData()
     private var _error = SingleLiveEvent<String>()
 
-    override val error: LiveData<String>
-        get() = _error
-
     init {
         moviesDataSource.apply {
             showingMovies.observeForever {
-                if (!it.isNullOrEmpty()) {App.hasFetched = true}
-                saveMoviesToLocalDatabase(it!!)
+                it.let { movies ->
+                    App.hasFetched = true
+                    saveMoviesToLocalDatabase(movies!!)
+                }
             }
             movieDetail.observeForever {
                 saveMovieDetailToLocalDatabase(it!!)
@@ -42,6 +41,9 @@ class MoviesRepositoryImpl(private val moviesDao: MoviesDao, private val moviesD
 
         }
     }
+
+    override val error: LiveData<String>
+        get() = _error
 
     //Calling database
     override suspend fun getShowingMovies(): LiveData<List<Movie>> {
